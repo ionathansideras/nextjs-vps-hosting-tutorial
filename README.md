@@ -84,7 +84,7 @@
         server_name <site-url> www.<site-url>;
 
         # OPTIONAL Serve static media if you have a static folder outside of public
-        location /<folder name>>/ {
+        location /<folder name>/ {
             alias /var/www/<site-url>/;
             autoindex on;
         }
