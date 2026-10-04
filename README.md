@@ -195,7 +195,7 @@
 16. Then make the file executable:
 
     ```bash
-    chmod +x deployment_actions.sh
+    chmod +x deployment-actions.sh
     ```
 
 17. Run the `deployment-actions.sh`:
