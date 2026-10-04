@@ -56,6 +56,7 @@
 8. Configure environment variables
 
     ```bash
+    # Create .env
     cat > .env
     # Paste your variables, then:
     Ctrl+D
