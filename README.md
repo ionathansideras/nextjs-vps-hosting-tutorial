@@ -171,7 +171,7 @@
 
     echo ""
     echo "==> Installing dependencies..."
-    npm ci
+    npm i
 
     echo ""
     echo "==> Building application..."
