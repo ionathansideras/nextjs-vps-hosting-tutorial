@@ -201,7 +201,7 @@
 17. Run the `deployment-actions.sh`:
 
     ```bash
-    ./deployment_actions.sh
+    ./deployment-actions.sh
     ```
 
 18. Make sure the domain A record is pointing to your VPS IP.
