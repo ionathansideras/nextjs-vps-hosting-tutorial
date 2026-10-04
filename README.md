@@ -91,7 +91,11 @@
 
 10. Create Nginx site file.
 
-11. Configure Nginx:
+    ```bash
+    cat > <site-name>
+    ```
+
+12. Configure Nginx:
 
     ```nginx
     # paste this
@@ -121,7 +125,7 @@
     }
     ```
 
-12. Activate your config:
+13. Activate your config:
 
     ```bash
     # Disable the default Nginx site
@@ -137,13 +141,13 @@
     systemctl reload nginx
     ```
 
-13. Create `deployment-actions.sh`:
+14. Create `deployment-actions.sh`:
 
     ```bash
     nano deployment_actions.sh
     ```
 
-14. Add the code:
+15. Add the code:
 
     ```bash
     #!/bin/bash
@@ -188,21 +192,21 @@
     echo "================================"
     ```
 
-15. Then make the file executable:
+16. Then make the file executable:
 
     ```bash
     chmod +x deployment_actions.sh
     ```
 
-16. Run the `deployment-actions.sh`:
+17. Run the `deployment-actions.sh`:
 
     ```bash
     ./deployment_actions.sh
     ```
 
-17. Make sure the domain A record is pointing to your VPS IP.
+18. Make sure the domain A record is pointing to your VPS IP.
 
-18. Enable SSL with Certbot:
+19. Enable SSL with Certbot:
 
     ```bash
     sudo apt update
