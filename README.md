@@ -14,7 +14,15 @@
     npm install -g pm2
     sudo apt install -y nginx
     ```
-4. Create your PM2 ecosystem config (`ecosystem.config.js`)
+
+4. Prepare application directory
+    ```bash
+    sudo mkdir -p /var/www/<app-name>
+
+    cd /var/www/<app-name>
+    ```
+
+5. Create your PM2 ecosystem config (`ecosystem.config.js`)
     ```js
     module.exports = {
         apps: [
@@ -29,19 +37,19 @@
         ],
     };
     ```
-5. Generate an SSH key & clone your repo
+6. Generate an SSH key & clone your repo
     ```bash
     cd /var/www/
     ssh-keygen -t ed25519 -C "<your_email@example.com>"
     cat ~/.ssh/id_ed25519.pub   # copy this key into your Git repo’s deploy keys
     git clone git@github.com:your_username/your_repo.git
     ```
-6. Install project dependencies
+7. Install project dependencies
     ```bash
     cd your_repo
     npm install
     ```
-7. Configure environment variables
+8. Configure environment variables
 
     ```bash
     nano .env
@@ -53,7 +61,7 @@
 
     ```
 
-8. Set up MySQL
+9. Set up MySQL
 
     ```bash
     # Check if MySQL is running
@@ -71,11 +79,11 @@
     npx prisma db push
     ```
 
-9. Create Nginx site file
+10. Create Nginx site file
     ```bash
     sudo nano /etc/nginx/sites-available/<site-url>
     ```
-10. Configure Nginx
+11. Configure Nginx
 
     ```bash
     # paste this
@@ -104,7 +112,7 @@
     }
     ```
 
-11. Enable SSL with Certbot
+12. Enable SSL with Certbot
 
     ```bash
     sudo apt update
@@ -120,7 +128,7 @@
     sudo systemctl reload nginx
     ```
 
-12. Build & start the app with PM2
+13. Build & start the app with PM2
     ```bash
     npm run build
     pm2 start ecosystem.config.js
