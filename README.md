@@ -83,9 +83,6 @@
     ```
 
 10. Create Nginx site file
-    ```bash
-    sudo nano /etc/nginx/sites-available/<site-url>
-    ```
     
 11. Configure Nginx
     ```bash
@@ -114,6 +111,22 @@
         error_log   /var/log/nginx/<site-name>.error.log warn;
     }
     ```
+
+12. Activate your config
+
+```bash
+    # Disable the default Nginx site
+    rm /etc/nginx/sites-enabled/default
+    
+    # Enable the your site
+    ln -s /etc/nginx/sites-available/<site-config-name> /etc/nginx/sites-enabled/<site-config-name>
+    
+    # Test Nginx configuration
+    nginx -t
+    
+    # Reload Nginx
+    systemctl reload nginx
+```
 
 12. Create deployment-actions.sh
     ```bash
