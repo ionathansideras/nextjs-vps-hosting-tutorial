@@ -6,6 +6,7 @@
     ```bash
     ssh root@<your-vps-ip>
     ```
+    
 3. Install system dependencies (`node.js, nginx, MySQL, pm2`)
     ```bash
     sudo apt update
@@ -27,7 +28,7 @@
     module.exports = {
         apps: [
             {
-                name: "/var/www/<app-name>",
+                name: "<app-name>",
                 script: "npm",
                 args: "run start",
                 instances: 1,
@@ -37,6 +38,7 @@
         ],
     };
     ```
+    
 6. Generate an SSH key & clone your repo
     ```bash
     cd /var/www/
@@ -44,11 +46,13 @@
     cat ~/.ssh/id_ed25519.pub   # copy this key into your Git repo’s deploy keys
     git clone git@github.com:your_username/your_repo.git
     ```
+    
 7. Install project dependencies
     ```bash
     cd your_repo
     npm install
     ```
+    
 8. Configure environment variables
 
     ```bash
@@ -83,8 +87,8 @@
     ```bash
     sudo nano /etc/nginx/sites-available/<site-url>
     ```
+    
 11. Configure Nginx
-
     ```bash
     # paste this
     server {
@@ -112,8 +116,66 @@
     }
     ```
 
-12. Enable SSL with Certbot
+12. Create deployment-actions.sh
+    ```bash
+        nano deployment_actions.sh
+    ```
+    
+13. Add the code
+    ```bash
+       #!/bin/bash
+    
+    set -e
+    
+    APP_DIR="/var/www/<app-name>"
+    BRANCH="main"
+    PM2_APP="<app-name>"
+    
+    echo "================================"
+    echo "Starting deployment"
+    echo "================================"
+    
+    cd "$APP_DIR"
+    
+    echo ""
+    echo "==> Updating repository..."
+    git fetch origin "$BRANCH"
+    git reset --hard "origin/$BRANCH"
+    
+    echo ""
+    echo "==> Installing dependencies..."
+    npm ci
+    
+    echo ""
+    echo "==> Building application..."
+    npm run build
+    
+    echo ""
+    echo "==> Starting/restarting PM2..."
+    
+    if pm2 describe "$PM2_APP" > /dev/null 2>&1; then
+        pm2 restart "$PM2_APP"
+    else
+        pm2 start ecosystem.config.js
+    fi
+    
+    echo ""
+    echo "================================"
+    echo "Deployment successful!"
+    echo "================================"
+    ```
 
+14. Then make the file an executable:
+    ```bash
+        chmod +x deployment_actions.sh
+    ```
+
+15. Run the deploiment-actions.sh
+    ```bash
+        ./deployment_actions.sh
+    ```
+   
+16. Enable SSL with Certbot
     ```bash
     sudo apt update
     sudo apt install -y certbot python3-certbot-nginx
@@ -128,10 +190,3 @@
     sudo systemctl reload nginx
     ```
 
-13. Build & start the app with PM2
-    ```bash
-    npm run build
-    pm2 start ecosystem.config.js
-    # To stop:
-    pm2 stop ecosystem.config.js
-    ```
