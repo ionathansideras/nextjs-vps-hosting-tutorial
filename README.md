@@ -58,6 +58,7 @@
     ```bash
     # Create .env
     cat > .env
+    
     # Paste your variables, then:
     Ctrl+D
 
@@ -172,8 +173,11 @@
     ```bash
         ./deployment_actions.sh
     ```
-   
-16. Enable SSL with Certbot
+
+16. Make sure the domain A record is pointing to your VPS IP
+
+
+17. Enable SSL with Certbot
     ```bash
     sudo apt update
     sudo apt install -y certbot python3-certbot-nginx
