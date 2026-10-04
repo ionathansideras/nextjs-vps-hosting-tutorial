@@ -56,12 +56,9 @@
 8. Configure environment variables
 
     ```bash
-    nano .env
+    cat > .env
     # Paste your variables, then:
-    Ctrl+V            # Paste
-    Ctrl+S            # Save
-    Ctrl+X            # Exit
-    cat .env          # Verify
+    Ctrl+D
 
     ```
 
