@@ -206,9 +206,7 @@
     ./deployment-actions.sh
     ```
 
-18. Make sure the domain A record is pointing to your VPS IP.
-
-19. Enable SSL with Certbot:
+18. Enable SSL with Certbot:
 
     ```bash
     sudo apt update
