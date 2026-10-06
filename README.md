@@ -151,44 +151,46 @@
 
     ```bash
     #!/bin/bash
-
+    
     set -e
-
-    APP_DIR="/var/www/<app-name>"
+    
+    APP_DIR="/var/www/<file-name>"
     BRANCH="main"
-    PM2_APP="<app-name>"
-
+    PM2_APP="<ecosystem-name>"
+    PORT="3000"
+    
     echo "================================"
     echo "Starting deployment"
     echo "================================"
-
+    
     cd "$APP_DIR"
-
+    
     echo ""
     echo "==> Updating repository..."
     git fetch origin "$BRANCH"
     git reset --hard "origin/$BRANCH"
-
+    
     echo ""
     echo "==> Installing dependencies..."
     npm i
-
+    
     echo ""
     echo "==> Building application..."
     npm run build
-
+    
     echo ""
     echo "==> Starting/restarting PM2..."
-
+    
     if pm2 describe "$PM2_APP" > /dev/null 2>&1; then
-        pm2 restart "$PM2_APP"
+        pm2 restart "$PM2_APP" --update-env
     else
-        pm2 start ecosystem.config.js
+        PORT="$PORT" pm2 start ecosystem.config.js --name "$PM2_APP" --update-env
     fi
-
+    
     echo ""
     echo "================================"
     echo "Deployment successful!"
+    echo "Application running on port $PORT"
     echo "================================"
     ```
 
