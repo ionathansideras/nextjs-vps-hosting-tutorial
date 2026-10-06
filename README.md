@@ -48,7 +48,7 @@
     # Create .env
     cat > .env
 
-    # Paste your variables, then:
+    # Paste your variables, then press this to exit:
     Ctrl+D
     ```
 
@@ -144,7 +144,7 @@
 14. Create `deployment-actions.sh`:
 
     ```bash
-    nano deployment_actions.sh
+     cat > deployment_actions.sh
     ```
 
 15. Add the code:
